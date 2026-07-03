@@ -1,0 +1,58 @@
+class Employee:
+    def __init__(self, name):
+        self.name = name
+
+    def calculate_salary(self):
+        pass
+
+
+class FullTimeEmployee(Employee):
+    def __init__(self, name, salary):
+        super().__init__(name)
+        self.salary = salary
+
+    def calculate_salary(self):
+        return self.salary
+
+
+class PartTimeEmployee(Employee):
+    def __init__(self, name, hours, rate):
+        super().__init__(name)
+        self.hours = hours
+        self.rate = rate
+
+    def calculate_salary(self):
+        return self.hours * self.rate
+
+
+def log_salary(name, salary):
+    with open("salary_log.txt", "a") as file:
+        file.write(f"{name} : {salary}\n")
+
+
+employees = []
+
+while True:
+    print("\n1. Add Full Time Employee")
+    print("2. Add Part Time Employee")
+    print("3. Show Salaries")
+    print("4. Export Payroll")
+    print("5. Exit")
+
+    choice = input("Enter Choice: ")
+
+    if choice == "1":
+        name = input("Enter Name: ")
+        salary = float(input("Enter Monthly Salary: "))
+        employees.append(FullTimeEmployee(name, salary))
+
+    elif choice == "2":
+        name = input("Enter Name: ")
+        hours = int(input("Enter Hours Worked: "))
+        rate = float(input("Enter Hourly Rate: "))
+        employees.append(PartTimeEmployee(name, hours, rate))
+
+    elif choice == "3":
+        for emp in employees:
+            salary = emp.calculate_salary()
+           
